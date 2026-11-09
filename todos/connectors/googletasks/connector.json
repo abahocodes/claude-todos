@@ -1,0 +1,9 @@
+{
+  "name": "googletasks",
+  "type": "script",
+  "roles": ["source", "reporter"],
+  "module": "googletasks.py",
+  "every_hours": 0.25,
+  "oauth": {"provider": "google", "scopes": ["https://www.googleapis.com/auth/tasks"]},
+  "description": "Mirrors open todos to a Google Tasks list (default 'Claude Todos'); ticking or adding tasks on your phone comes back. One-time sign-in: todo connector auth googletasks --client <oauth-client.json>"
+}

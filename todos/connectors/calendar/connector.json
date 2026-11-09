@@ -1,0 +1,25 @@
+{
+  "name": "calendar",
+  "type": "agent",
+  "roles": [
+    "source"
+  ],
+  "prompt": "prompt.md",
+  "every_hours": 24,
+  "first_lookback_days": 1,
+  "authority": "inferred",
+  "allowed_tools": [
+    "mcp__claude_ai_Google_Calendar__list_events",
+    "mcp__claude_ai_Google_Calendar__search_events",
+    "mcp__claude_ai_Google_Calendar__get_event",
+    "mcp__claude_ai_Google_Calendar__list_calendars"
+  ],
+  "disallowed_tools": [
+    "mcp__claude_ai_Google_Calendar__create_event",
+    "mcp__claude_ai_Google_Calendar__update_event",
+    "mcp__claude_ai_Google_Calendar__delete_event",
+    "mcp__claude_ai_Google_Calendar__respond_to_event"
+  ],
+  "description": "Read-only: deadlines and meetings needing prep become proposed todos or due dates. Uses your claude.ai Calendar connector.",
+  "agenda": true
+}

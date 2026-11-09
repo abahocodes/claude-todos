@@ -1,0 +1,6 @@
+{
+  "name": "sessions",
+  "type": "builtin",
+  "roles": ["source"],
+  "description": "Reads new parts of your Claude Code session transcripts (built in, triggered by hooks and the sweeper)."
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ics",
+  "type": "script",
+  "multi": true,
+  "roles": [
+    "source"
+  ],
+  "module": "ics.py",
+  "every_hours": 12,
+  "authority": "inferred",
+  "description": "Any calendar's private iCal feed (Google 'Secret address in iCal format', Outlook, iCloud). Read-only by nature. The feed URL is the secret: todo connector secret <name>.",
+  "agenda": true
+}

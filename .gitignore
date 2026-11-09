@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+*.secret
+.claude-plugin/types/
+# OAuth client files and tokens never belong in the repo
+*client*.json
+!.claude-plugin/*.json

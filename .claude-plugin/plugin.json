@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "todos",
+  "version": "0.1.0",
+  "description": "One todo list shared by every Claude Code session. It notices when you finish or commit to things, pulls in email and calendar signals, alerts you before meetings, and syncs to your phone.",
+  "author": {
+    "name": "Abaho Katabarwa"
+  },
+  "homepage": "https://github.com/abahocodes/claude-todos",
+  "repository": "https://github.com/abahocodes/claude-todos",
+  "license": "MIT",
+  "keywords": ["todos", "tasks", "productivity", "hooks", "google-tasks", "todoist", "calendar"],
+  "skills": [
+    "./"
+  ]
+}

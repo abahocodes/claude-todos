@@ -1,0 +1,17 @@
+{
+  "name": "claude-todos",
+  "owner": {
+    "name": "Abaho Katabarwa"
+  },
+  "metadata": {
+    "description": "The todos plugin for Claude Code: one self-updating todo list across all your sessions."
+  },
+  "plugins": [
+    {
+      "name": "todos",
+      "source": "./",
+      "description": "One todo list shared by every Claude Code session, self-updating, with email/calendar signals, meeting alerts and phone sync.",
+      "version": "0.1.0"
+    }
+  ]
+}

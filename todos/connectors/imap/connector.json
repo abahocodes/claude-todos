@@ -1,0 +1,10 @@
+{
+  "name": "imap",
+  "type": "script",
+  "multi": true,
+  "roles": ["source"],
+  "module": "imap.py",
+  "every_hours": 24,
+  "authority": "inferred",
+  "description": "Any mailbox over IMAP, opened read-only (nothing is marked read, moved or sent). Gmail: host imap.gmail.com + an app password. Password: todo connector secret <name>."
+}

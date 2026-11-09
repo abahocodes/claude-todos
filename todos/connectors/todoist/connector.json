@@ -1,0 +1,9 @@
+{
+  "name": "todoist",
+  "type": "script",
+  "roles": ["source", "reporter"],
+  "module": "todoist.py",
+  "every_hours": 0.25,
+  "auth": {"env": "TODOIST_TOKEN"},
+  "description": "Mirrors open todos to a Todoist project (default 'Claude Todos'); your edits there come back. Token: security add-generic-password -s todos-todoist -a todos -w <token>"
+}
