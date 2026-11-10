@@ -1,8 +1,11 @@
 {
   "name": "github",
   "type": "script",
-  "roles": ["source"],
+  "roles": [
+    "source"
+  ],
   "module": "github.py",
   "every_hours": 6,
-  "description": "Your merged pull requests (via the gh CLI) count as evidence; a PR matching an open todo proposes marking it done."
+  "description": "Your merged pull requests (via the gh CLI), read by the model next to your open todos; a PR that delivers one proposes marking it done.",
+  "authority": "inferred"
 }

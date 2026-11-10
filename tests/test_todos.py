@@ -418,6 +418,32 @@ class MultiConnectorTests(Base):
             b'(\\HasNoChildren) "/" "INBOX"', b'(\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"'])})()),
             "[Gmail]/Sent Mail")
 
+    def test_github_sends_unseen_prs_to_model_and_keeps_only_done(self):
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "github_t", Path(__file__).resolve().parents[1] / "todos/connectors/github/github.py")
+        gh = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(gh)
+        prs = [{"title": "fix(auth): route email sign-in to check-email page", "url": "u/1", "body": "Magic\nlink",
+                "repository": {"nameWithOwner": "me/app"}},
+               {"title": "chore: bump deps", "url": "u/0", "body": "", "repository": {"nameWithOwner": "me/app"}}]
+        got = {}
+
+        def analyze(instructions, material):
+            got["material"] = material
+            return [{"kind": SignalKind.DONE, "todo": 3}, {"kind": SignalKind.NEW, "title": "x"}]
+
+        ctx = type("Ctx", (), {"state": {"seen_urls": ["u/0"]}, "dry_run": False, "log": lambda s, m: None,
+                               "analyze": lambda s, i, m: analyze(i, m)})()
+        run = mock.Mock(returncode=0, stdout=json.dumps(prs))
+        with mock.patch.object(gh.subprocess, "run", return_value=run):
+            signals = gh.Connector(ctx).pull()
+        self.assertEqual([s["kind"] for s in signals], [SignalKind.DONE])
+        self.assertIn("[me/app] fix(auth): route email sign-in to check-email page (u/1)\n  Magic link", got["material"])
+        self.assertNotIn("bump deps", got["material"])
+        self.assertEqual(sorted(ctx.state["seen_urls"]), ["u/0", "u/1"])
+
 
 def _ics_module():
     import importlib.util
