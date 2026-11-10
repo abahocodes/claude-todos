@@ -535,6 +535,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from .core.net import prefer_ipv4
+
+    prefer_ipv4()
     args = build_parser().parse_args(argv)
     cfg = paths.load_config()
     try:
