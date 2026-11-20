@@ -14,21 +14,21 @@ python3 <this skill's base directory>/bin/todo
 
 ## Commands
 
-| Need | Command |
-|---|---|
-| See the list | `todo list` (`--all` includes done/dropped, `--json` for detail) |
-| One todo with history | `todo show 12` |
-| Add | `todo add "Send W-9 to the accountant" --due 2026-11-14 [--parent 12] [--notes ...]` |
-| Change | `todo edit 12 --title ... --due ... --notes ...` |
-| Finish / undo | `todo done 12 --evidence "what proves it"` / `todo reopen 12` |
-| Abandon | `todo drop 12 --reason "..."` |
-| Push back | `todo defer 12 --due 2026-11-20` (counts toward "rethink") |
-| Flags + proposals | `todo review` |
-| Proposals | `todo proposals`, `todo approve 3 4`, `todo reject 5`, `todo approve --all` |
-| Today's / this week's calendar | `todo agenda` / `todo agenda --week` (`--refresh` re-reads feeds) |
-| What the background checks decided | `todo log` |
-| AI cost so far | `todo stats` |
-| Health | `todo doctor` |
+| Need                               | Command                                                                              |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| See the list                       | `todo list` (`--all` includes done/dropped, `--json` for detail)                     |
+| One todo with history              | `todo show 12`                                                                       |
+| Add                                | `todo add "Send W-9 to the accountant" --due 2026-11-14 [--parent 12] [--notes ...]` |
+| Change                             | `todo edit 12 --title ... --due ... --notes ...`                                     |
+| Finish / undo                      | `todo done 12 --evidence "what proves it"` / `todo reopen 12`                        |
+| Abandon                            | `todo drop 12 --reason "..."`                                                        |
+| Push back                          | `todo defer 12 --due 2026-11-20` (counts toward "rethink")                           |
+| Flags + proposals                  | `todo review`                                                                        |
+| Proposals                          | `todo proposals`, `todo approve 3 4`, `todo reject 5`, `todo approve --all`          |
+| Today's / this week's calendar     | `todo agenda` / `todo agenda --week` (`--refresh` re-reads feeds)                    |
+| What the background checks decided | `todo log`                                                                           |
+| AI cost so far                     | `todo stats`                                                                         |
+| Health                             | `todo doctor`                                                                        |
 
 When you act for the user inside a session, add `--by claude`. When the user tells you directly, the default (`user`) is right.
 
@@ -49,6 +49,11 @@ Start with `todo review`. It prints flags computed from the data; use them, then
   `todo add "<child>" --parent 12` for each. Keep the parent open until the children are done.
 - **Proposals** come from background checks (sessions, email, calendar). Show them grouped, with the
   evidence, and let the user approve or reject in one reply. Never approve on the user's behalf.
+  Collect the decision with the AskUserQuestion tool, not a free-text reply: one question per group
+  (up to 4 per call; make more calls if needed). A group of 2-4 proposals: multiSelect, one option per
+  proposal ("p14 Pay Bilt card, due 12/4"), selected = approve, unselected = reject. A bigger group:
+  single-select "Approve all" / "Reject all" / "Leave pending", with the ids listed in the question;
+  the user picks "Other" to split it. Put your recommendation first and mark it "(Recommended)".
 
 Never complete, drop or approve anything the user hasn't confirmed, unless the work just finished in
 front of you (then `todo done <id> --by claude --evidence "..."` and say so in one line).
@@ -90,6 +95,7 @@ todo connector remove todoist       # stop syncing; history kept, id map archive
 ## Settings
 
 `todo config` shows everything. Common ones:
+
 - `todo config auto_apply true`: let confident inferred changes apply without a proposal (start false).
 - `todo config confidence_auto 0.85`
 - `todo config throttle.min_chars 3000`, `throttle.min_interval_min`, `throttle.idle_min`
