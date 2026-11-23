@@ -54,6 +54,8 @@ Start with `todo review`. It prints flags computed from the data; use them, then
   proposal ("p14 Pay Bilt card, due 12/4"), selected = approve, unselected = reject. A bigger group:
   single-select "Approve all" / "Reject all" / "Leave pending", with the ids listed in the question;
   the user picks "Other" to split it. Put your recommendation first and mark it "(Recommended)".
+  Before asking, reject any proposal that is already done or moot (e.g. "schedule X" after X is
+  booked) with `todo reject` and say so in one line. Never leave those pending or ask about them.
 
 Never complete, drop or approve anything the user hasn't confirmed, unless the work just finished in
 front of you (then `todo done <id> --by claude --evidence "..."` and say so in one line).
